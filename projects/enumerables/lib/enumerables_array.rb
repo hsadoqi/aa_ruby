@@ -37,4 +37,29 @@ class Array
         self
     end 
 
+    def my_each(&prc)
+        self.length.times do |i|
+            prc.call(self[i])
+        end 
+
+        self
+    end 
+
+    def my_map(&prc)
+        changed_arr = []
+        self.length.times do |i|
+            changed_arr << prc.call(self[i])
+        end 
+        changed_arr
+    end 
+
+    def my_select(&prc)
+        selected_arr = []
+
+        self.length.times do |i|
+            selected_arr << self[i] if prc.call(self[i])
+        end 
+        selected_arr
+    end 
+    
 end 
