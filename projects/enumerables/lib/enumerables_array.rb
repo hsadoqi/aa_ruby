@@ -61,5 +61,44 @@ class Array
         end 
         selected_arr
     end 
+
+    def my_reject(&prc)
+        non_rejected = []
+
+        self.length.times do |i|
+            non_rejected << self[i] if !prc.call(self[i])
+        end
+        non_rejected
+    end 
+
+    def my_inject(&prc)
+        sum = self[0]
+        self[1..-1].my_each {|item| sum = prc.call(sum, item)}
+        sum
+    end 
+
+    def my_any?(&prc)
+        self.my_each {|ele| return true if prc.call(ele)}
+        false
+    end 
+
+    def my_flatten(results = [])
+        self.each do |ele|
+            if ele.class == Array 
+                ele.my_flatten(results)
+            else 
+                results << ele
+            end
+        end 
+        results
+    end 
+
+    def my_zip(*args)
+    end
+
     
+end 
+
+def concatenate(strings)
+    strings.inject(:+)
 end 
